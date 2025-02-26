@@ -163,7 +163,7 @@ const App: React.FC = () => {
         mb={4}
       >
         <Box display="flex" alignItems="center" gap={2}>
-          <Typography variant="h4">Voice Prediction Market</Typography>
+          <Typography variant="h4">Voice Verification Markets</Typography>
           <LaunchNewMarket onSubmit={handleNewMarket} />
         </Box>
         <SolanaWalletConnect />

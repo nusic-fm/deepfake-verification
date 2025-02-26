@@ -144,7 +144,7 @@ const VoiceMarket: React.FC<VoiceMarketProps> = ({
             background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
           }}
         >
-          Listen to Bid
+          Listen to Bet
         </Button>
       </Box>
 
@@ -226,7 +226,7 @@ const VoiceMarket: React.FC<VoiceMarketProps> = ({
                 background: "linear-gradient(45deg, #FF9800 30%, #FFB74D 90%)",
               }}
             >
-              Bid 0.5 SOL
+              Bet 0.5 SOL
             </Button>
           )}
         </Box>

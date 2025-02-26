@@ -36,7 +36,7 @@ const LaunchNewMarket: React.FC<LaunchNewMarketProps> = ({ onSubmit }) => {
     deepfakeAudio: null as File | null,
     image: null as File | null,
     enableCountdown: false,
-    minimumBid: 0.1,
+    minimumBet: 0.1,
     duration: 24, // hours
   });
   const [deepfakeTab, setDeepfakeTab] = useState(0);
@@ -78,6 +78,13 @@ const LaunchNewMarket: React.FC<LaunchNewMarketProps> = ({ onSubmit }) => {
     console.log("Generating TTS from:", ttsText);
   };
 
+  const onLaunchMarket = async () => {
+    // const marketId = await createMarket(marketData);
+    // await uploadMarketImage(marketData.image, marketId);
+    // await uploadMarketRealAudio(marketData.realAudio, marketId);
+    // await uploadMarketDeepfakeAudio(marketData.deepfakeAudio, marketId);
+  };
+
   return (
     <>
       <Button
@@ -93,7 +100,7 @@ const LaunchNewMarket: React.FC<LaunchNewMarketProps> = ({ onSubmit }) => {
         <Box
           sx={{ display: "flex", alignItems: "center", gap: 1, px: 3, pt: 2 }}
         >
-          <Typography variant="h5">Launch New Prediction Market</Typography>
+          <Typography variant="h5">Launch New Verification Market</Typography>
           <Tooltip
             title="Fee of 0.02 SOL will be charged for the market creation"
             placement="bottom"
@@ -271,7 +278,7 @@ const LaunchNewMarket: React.FC<LaunchNewMarketProps> = ({ onSubmit }) => {
             />
 
             <TextField
-              label="Minimum Bid (SOL)"
+              label="Minimum Bet (SOL)"
               type="number"
               InputProps={{
                 startAdornment: (
@@ -281,11 +288,11 @@ const LaunchNewMarket: React.FC<LaunchNewMarketProps> = ({ onSubmit }) => {
               inputProps={{
                 step: 0.1,
               }}
-              value={marketData.minimumBid}
+              value={marketData.minimumBet}
               onChange={(e) =>
                 setMarketData((prev) => ({
                   ...prev,
-                  minimumBid: parseFloat(e.target.value),
+                  minimumBet: parseFloat(e.target.value),
                 }))
               }
               size="small"
