@@ -1,80 +1,88 @@
-import { createTheme, responsiveFontSizes } from "@mui/material";
-import WebFont from "webfontloader";
+import { createTheme } from '@mui/material/styles';
 
-WebFont.load({
-  google: {
-    families: ["Inter:400,500,600,700", "Space Grotesk:500,700"],
-  },
-});
-
-declare module "@mui/material/styles/createPalette" {
-  interface Palette {
-    customPaper: { main: string; border: string };
-  }
-
-  interface PaletteOptions {
-    customPaper?: { main: string; border: string };
-  }
-}
-
-const themeSettings = createTheme({
+// Create a custom theme with vibrant colors
+const theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
     primary: {
-      main: "#64FFDA", // Aurora green
-      light: "#95FFE6",
-      contrastText: "#000", // Black text on light colors
+      main: '#00e676', // Bright green
     },
     secondary: {
-      main: "#BD93F9", // Soft purple
-    },
-    info: {
-      main: "#8BE9FD", // Ice blue
-    },
-    warning: {
-      main: "#FFB86C", // Soft orange
-    },
-    customPaper: {
-      main: "#282A36", // Deep charcoal
-      border: "#44475A", // Midnight blue border
+      main: '#ff3d00', // Vibrant orange
     },
     background: {
-      default: "#1A1C2C", // Deep twilight
-      paper: "#282A36",
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+    error: {
+      main: '#ff1744',
+    },
+    success: {
+      main: '#00e676',
+    },
+    info: {
+      main: '#2979ff',
+    },
+    warning: {
+      main: '#ffea00',
     },
   },
   typography: {
-    fontFamily: `"Inter", sans-serif`,
+    fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontFamily: `"Space Grotesk", sans-serif`,
       fontWeight: 700,
     },
     h2: {
-      fontFamily: `"Space Grotesk", sans-serif`,
-      fontWeight: 700,
+      fontWeight: 600,
     },
-    h3: {
-      fontFamily: `"Space Grotesk", sans-serif`,
-      fontWeight: 700,
+    button: {
+      fontWeight: 600,
+      textTransform: 'none',
     },
-    h4: {
-      fontFamily: `"Space Grotesk", sans-serif`,
-      fontWeight: 700,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          padding: '10px 20px',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: '0 6px 20px rgba(0, 230, 118, 0.4)',
+          },
+        },
+        containedPrimary: {
+          background: 'linear-gradient(45deg, #00e676 30%, #00c853 90%)',
+        },
+        containedSecondary: {
+          background: 'linear-gradient(45deg, #ff3d00 30%, #dd2c00 90%)',
+        },
+      },
     },
-    h5: {
-      fontFamily: `"Space Grotesk", sans-serif`,
-      fontWeight: 500,
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+          overflow: 'hidden',
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            boxShadow: '0 12px 28px rgba(0, 0, 0, 0.3)',
+          },
+        },
+      },
     },
-    h6: {
-      fontFamily: `"Space Grotesk", sans-serif`,
-      fontWeight: 500,
-    },
-    allVariants: {
-      color: "#ffffff", // Changed to pure white
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          fontWeight: 600,
+        },
+      },
     },
   },
 });
-
-const theme = responsiveFontSizes(themeSettings);
 
 export default theme;

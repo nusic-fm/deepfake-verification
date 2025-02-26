@@ -1,22 +1,48 @@
-import { storage } from "../firebase.service.js";
-import { getDownloadURL } from "firebase/storage";
-import { ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
-const FOLDER_NAME = "tts-yt-audio";
+/**
+ * Service for handling YouTube audio files stored in Firebase Storage
+ */
+export class YTAudioStorage {
+  private static instance: YTAudioStorage;
+  private storage = getStorage();
 
-const uploadToYtAudioStorage = async (file: File, fileName: string) => {
-  // Create a reference to the file in Firebase Storage
-  const storageRef = ref(storage, `${FOLDER_NAME}/${fileName}`);
+  private constructor() {}
 
-  // Upload the file
-  await uploadBytes(storageRef, file);
+  /**
+   * Get singleton instance of YTAudioStorage
+   */
+  public static getInstance(): YTAudioStorage {
+    if (!YTAudioStorage.instance) {
+      YTAudioStorage.instance = new YTAudioStorage();
+    }
+    return YTAudioStorage.instance;
+  }
 
-  // Get the download URL
-  const downloadUrl = await getDownloadURL(storageRef);
-  console.log({ downloadUrl });
-  return `${
-    import.meta.env.VITE_FIREBASE_STORAGE_URL
-  }/${FOLDER_NAME}%2F${fileName}?alt=media`;
-};
+  /**
+   * Get the URL for a dummy audio file
+   * @returns Promise with the download URL
+   */
+  public async getDummyAudioUrl(): Promise<string> {
+    // Using the provided Firebase Storage URL
+    return "https://firebasestorage.googleapis.com/v0/b/nusic-ai-agent.firebasestorage.app/o/audio(11).wav?alt=media&token=470dcf76-3dbe-4a4a-9c4f-25ce19f2d33f";
+  }
 
-export { uploadToYtAudioStorage };
+  /**
+   * Get the URL for an audio file by its ID
+   * @param audioId The ID of the audio file
+   * @returns Promise with the download URL
+   */
+  public async getAudioUrl(audioId: string): Promise<string> {
+    try {
+      const audioRef = ref(this.storage, `audio/${audioId}.wav`);
+      return await getDownloadURL(audioRef);
+    } catch (error) {
+      console.error("Error getting audio URL:", error);
+      // Fallback to dummy audio if there's an error
+      return this.getDummyAudioUrl();
+    }
+  }
+}
+
+export default YTAudioStorage.getInstance();
